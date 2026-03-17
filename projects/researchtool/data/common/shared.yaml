@@ -1,0 +1,5 @@
+# 全局期刊账号测试数据 (仅业务逻辑/实体)
+user:
+  email: "wangbing@dongbidata.com"
+  password: "Aa@1234567"
+  type: 1 # 1 代表机构用户，0 代表个人用户

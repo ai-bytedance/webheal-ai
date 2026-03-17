@@ -1,0 +1,118 @@
+module: 用户登录
+tags: [regression]
+cases:
+  - name: 验证登录页面正确展示个人学者、期刊机构、立即注册入口
+    tags: [smoke, P0]
+    steps:
+      - step: 1. 访问登录主页
+        page: LoginPage
+        action: goto
+        screenshot: true
+      - step: 2. 验证核心入口渲染 (个人学者/期刊机构/立即注册)
+        page: LoginPage
+        action: verifyRendering
+        params: ["${ui.login_landing.entries}"]
+        screenshot: true
+
+  - name: 验证机构用户登录页面能够正确渲染展示
+    tags: [smoke, P1]
+    steps:
+      - step: 1. 访问登录主页
+        page: LoginPage
+        action: goto
+        screenshot: true
+      - step: 2. 点击 "期刊机构" 进入机构登录
+        page: LoginPage
+        action: selectIdentity
+        params: ["${ui.login_landing.entries.1}"] # 即 "期刊机构"
+        screenshot: true
+      - step: 3. 验证 "机构登录" 标题
+        page: LoginPage
+        action: verifyLoginHeader
+        params: ["${ui.institutional_login.header}"]
+        screenshot: true
+      - step: 4. 验证电子邮箱输入框 (含占位符)
+        page: LoginPage
+        action: verifyInputWithPlaceholder
+        params: ["${ui.institutional_login.email_label}", "${ui.institutional_login.email_placeholder}"]
+        screenshot: true
+      - step: 5. 验证密码输入框 (含占位符)
+        page: LoginPage
+        action: verifyInputWithPlaceholder
+        params: ["${ui.institutional_login.password_label}", "${ui.institutional_login.password_placeholder}"]
+        screenshot: true
+      - step: 6. 验证 "立即登录" 按钮
+        page: LoginPage
+        action: verifyButton
+        params: ["${ui.institutional_login.login_btn}"]
+        screenshot: true
+
+  - name: 验证机构用户登录页面能够正确点击切换二维码登录，微信二维码正确渲染展示
+    tags: [smoke, P1]
+    steps:
+      - step: 1. 访问登录主页
+        page: LoginPage
+        action: goto
+        screenshot: true
+      - step: 2. 点击 "期刊机构" 进入机构登录
+        page: LoginPage
+        action: selectIdentity
+        params: ["${ui.login_landing.entries.1}"]
+        screenshot: true
+      - step: 3. 点击二维码半角图切换到二维码登录页面
+        page: LoginPage
+        action: switchToQRCodeLogin
+        params: ["${ui.institutional_login.qr_toggle}"]
+        screenshot: true
+      - step: 4. 验证微信二维码正确渲染展示
+        page: LoginPage
+        action: verifyQRCodeVisibility
+        params: ["${ui.institutional_login.wechat_iframe}", "${ui.institutional_login.wechat_qr_image}"]
+        screenshot: true
+      - step: 5. 点击切换图标回退到电子邮箱登录
+        page: LoginPage
+        action: switchToPasswordLogin
+        params: ["${ui.institutional_login.qr_toggle}"]
+        screenshot: true
+      - step: 6. 验证回到电子邮箱登录状态 (验证登录标题)
+        page: LoginPage
+        action: verifyLoginHeader
+        params: ["${ui.institutional_login.header}"]
+        screenshot: true
+
+  - name: 验证机构用户能够正常登录系统
+    tags: [smoke, P0]
+    steps:
+      - step: 1. 访问登录主页
+        page: LoginPage
+        action: goto
+        screenshot: true
+      - step: 2. 点击 "期刊机构" 进入机构登录
+        page: LoginPage
+        action: selectIdentity
+        params: ["${ui.login_landing.entries.1}"]
+        screenshot: true
+      - step: 3. 输入电子邮箱
+        page: LoginPage
+        action: fillInputByPlaceholder
+        params: ["${ui.institutional_login.email_placeholder}", "${user.email}"]
+        screenshot: true
+      - step: 4. 输入密码
+        page: LoginPage
+        action: fillInputByPlaceholder
+        params: ["${ui.institutional_login.password_placeholder}", "${user.password}"]
+        screenshot: false
+      - step: 5. 勾选用户协议
+        page: LoginPage
+        action: checkAgreement
+        screenshot: true
+      - step: 6. 点击立即登录按钮
+        page: LoginPage
+        action: clickButton
+        params: ["${ui.institutional_login.login_btn}"]
+        screenshot: true
+      - step: 7. 验证登录成功状态
+        page: LoginPage
+        action: verifyLoginSuccess
+        params: ["${ui.institutional_login.login_success_element}"]
+        screenshot: true

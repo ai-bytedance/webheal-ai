@@ -1,0 +1,7 @@
+# 预发环境 (Preprod) 特定配置
+config:
+  uiBase: "https://preprod.researchtool.cn"
+  apiBase: "https://preprodapi.researchtool.cn"
+user:
+  email: "wangbing@dongbidata.com" 
+  password: "Aa@1234567"

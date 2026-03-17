@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Test Output & Reports
+output/
+allure-results/
+test-results/
+
+# Playwright
+playwright-report/
+blob-report/
+
+# Auth State (sensitive)
+core/auth/storageState.json
+
+# IDE & System
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Environment (may contain secrets)
+.env.local
+.env.production
+
+# Build artifacts
+dist/
+*.tsbuildinfo
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# docs
+*.md

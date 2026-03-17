@@ -1,0 +1,33 @@
+{
+  "name": "webheal-ai",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:api": "npx playwright test --project=webheal-ai-api",
+    "test:ui": "npx playwright test --project=webheal-ai",
+    "test:all": "npx playwright test --project=webheal-ai --project=webheal-ai-api",
+    "test:smoke": "npx playwright test --grep @smoke --project=webheal-ai --project=webheal-ai-api",
+    "test:p0": "npx playwright test --grep @P0 --project=webheal-ai --project=webheal-ai-api",
+    "test:prod": "test_env=prod npx playwright test --project=webheal-ai --project=webheal-ai-api",
+    "test:prod:smoke": "test_env=prod npx playwright test --grep @smoke --project=webheal-ai --project=webheal-ai-api"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@browserbasehq/stagehand": "^3.1.0",
+    "@playwright/test": "^1.58.2",
+    "allure-playwright": "^3.6.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/js-yaml": "^4.0.9",
+    "glob": "^13.0.6",
+    "js-yaml": "^4.1.1"
+  }
+}

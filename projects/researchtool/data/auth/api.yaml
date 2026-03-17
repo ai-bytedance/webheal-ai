@@ -1,0 +1,7 @@
+api:
+  # Auth 模块接口协议常量
+  login:
+    code_success: 200
+    success_flag: true
+    error_invalid_pwd: 401
+    path: "/user/user/login"

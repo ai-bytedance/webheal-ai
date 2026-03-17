@@ -1,0 +1,18 @@
+module: 用户登录
+tags: [regression]
+cases:
+  - name: 验证机构用户正常登录ResearchTool系统
+    tags: [smoke, P0]
+    steps:
+      - step: 1. 调用登录接口并验证响应
+        page: LoginAPI
+        action: login
+        params:
+          - email: "${user.email}"
+            password: "${user.password}"
+            userType: ${user.type}
+          - "${api.login.path}"
+        asserts:
+          success: ${api.login.success_flag}
+          code: ${api.login.code_success}
+          data: $notNull

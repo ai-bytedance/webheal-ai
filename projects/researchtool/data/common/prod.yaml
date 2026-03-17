@@ -1,0 +1,7 @@
+# 生产环境 (Prod) 特定配置
+config:
+  uiBase: "https://prod.researchtool.cn"
+  apiBase: "https://prodapi.researchtool.cn"
+user:
+  email: "wangbing@dongbidata.com"
+  password: "Db@123456"

@@ -1,0 +1,16 @@
+# Auth 模块专属 UI 校验数据
+# 优先级高于 data/common/ui.yaml
+ui:
+  # 登录全流程相关 UI 校验数据
+  # 2. 机构用户登录页
+  institutional_login:
+    header: "机构登录"
+    email_label: "电子邮箱"
+    password_label: "密码"
+    email_placeholder: "请输入电子邮箱"
+    password_placeholder: "请输入密码"
+    login_btn: "立即登录"
+    qr_toggle: ".qr-icon, img[src*='qrcod'], img[src*='computer']" # 切换二维码/电脑登录的图标
+    wechat_iframe: "iframe[src*='open.weixin.qq.com']"
+    wechat_qr_image: ".wrp_code img.js_qrcode_img"
+    login_success_element: ".arco-avatar, [class*='avatar'], [alt*='avatar'], .user-menu, button:has-text('新增期刊')" # 登录成功后的标识

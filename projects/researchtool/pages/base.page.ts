@@ -1,19 +1,19 @@
 import { Page } from '@playwright/test';
-import { StagehandHandler } from '../../../core/stagehand/stagehand.handler';
+import { AIHandler } from '../../../core/engine/ai-handler';
 
 /**
  * BasePage: 所有 Page Object 的基类
  * 提供 AI 处理器注入和通用的自愈操作逻辑
  */
 export class BasePage {
-  protected aiHandler: StagehandHandler | null = null;
+  protected aiHandler: AIHandler | null = null;
 
   constructor(public readonly page: Page) {}
 
   /**
    * 供 PageRegistry 调用，注入 AI 处理器
    */
-  setAIHandler(handler: StagehandHandler) {
+  setAIHandler(handler: AIHandler) {
     this.aiHandler = handler;
   }
 

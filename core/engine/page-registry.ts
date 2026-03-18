@@ -1,6 +1,6 @@
 import { Page } from '@playwright/test';
 import { LoginPage } from '../../projects/researchtool/pages/auth/login.page';
-import { StagehandHandler } from '../stagehand/stagehand.handler';
+import { AIHandler } from './ai-handler';
 import { LoginAPI } from '../../projects/researchtool/api/auth/login.api';
 import { APIRequestContext } from '@playwright/test';
 
@@ -22,7 +22,7 @@ export class PageRegistry {
     
     // 如果是 UI Page，则尝试注入 AI 自愈处理器
     if ('setAIHandler' in instance && 'on' in (page as any)) {
-      (instance as any).setAIHandler(new StagehandHandler(page as Page));
+      (instance as any).setAIHandler(new AIHandler(page as Page));
     }
     
     return instance;

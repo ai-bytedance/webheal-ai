@@ -1,6 +1,10 @@
 import { defineConfig, devices } from '@playwright/test';
 import { DataEngine } from './core/engine/data-engine';
 
+// 基础环境信息获取
+const testEnv = process.env.test_env || 'preprod';
+const authFile = `output/auth/auth-${testEnv}.json`;
+
 // 动态生成统一的执行输出目录
 const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19).replace('T', '_');
 const runReportDir = `output/reports/run_${timestamp}`;
@@ -56,7 +60,7 @@ export default defineConfig({
       ],
       use: {
         ...devices['Desktop Chrome'],
-        storageState: 'auth.json',
+        storageState: authFile,
       },
       dependencies: ['auth-setup'],
     },
@@ -76,7 +80,7 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         baseURL: process.env.API_BASE_URL,
-        storageState: 'auth.json', // 使用登录状态
+        storageState: authFile, // 使用登录状态
       },
       dependencies: ['auth-setup'],
     },

@@ -3,8 +3,6 @@ node_modules/
 
 # Test Output & Reports
 output/
-allure-results/
-test-results/
 
 # Playwright
 playwright-report/

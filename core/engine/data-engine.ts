@@ -40,8 +40,11 @@ export class DataEngine {
       fileNames.forEach(name => {
         const filePath = path.join(dir, `${name}.yaml`);
         if (fs.existsSync(filePath)) {
+          console.log(`[DataEngine] 正在加载配置: ${filePath}`);
           const content = yaml.load(fs.readFileSync(filePath, 'utf8')) || {};
           mergedData = this.deepMerge(mergedData, content);
+        } else if (name === this.testEnv) {
+          console.warn(`[DataEngine] 警告: 未找到环境覆盖文件: ${filePath}`);
         }
       });
     };
@@ -59,6 +62,12 @@ export class DataEngine {
     // 3. 合并用例私有变量
     if (caseVariables) {
       mergedData = this.deepMerge(mergedData, caseVariables);
+    }
+
+    // 注入调试信息：当前最终生效的环境 URL
+    if (mergedData.config) {
+      console.log(`[DataEngine] 最终生效 UI 地址: ${mergedData.config.uiBase}`);
+      console.log(`[DataEngine] 最终生效 API 地址: ${mergedData.config.apiBase}`);
     }
 
     return mergedData;

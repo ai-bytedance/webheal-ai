@@ -1,0 +1,26 @@
+module: AI 自愈能力演示
+tags: [demo, self-heal]
+cases:
+  - name: 验证 AI 自适应定位器变更 (自愈演示)
+    tags: [smoke, P0]
+    steps:
+      - step: 1. 访问登录主页
+        page: LoginPage
+        action: goto
+        screenshot: true
+      - step: 2. 选择身份为 "期刊机构"
+        page: LoginPage
+        action: selectIdentity
+        params: ["${ui.login_landing.entries.1}"]
+        screenshot: true
+      - step: 3. 尝试使用错误的定位器切换二维码 (触发 AI 自愈)
+        page: LoginPage
+        action: switchToQRCodeLogin
+        # 故意传入一个不存在的选择器，模拟前端改名或结构变化
+        params: ["#wrong-selector-for-demo-purposes"] 
+        screenshot: true
+      - step: 4. 验证二维码是否可见 (确认自愈成功)
+        page: LoginPage
+        action: verifyQRCodeVisibility
+        params: ["${ui.institutional_login.wechat_iframe}", "${ui.institutional_login.wechat_qr_image}"]
+        screenshot: true

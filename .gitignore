@@ -22,6 +22,8 @@ Thumbs.db
 # Environment (may contain secrets)
 .env.local
 .env.production
+*.env
+
 
 # Build artifacts
 dist/
@@ -34,3 +36,7 @@ yarn-error.log*
 
 # docs
 *.md
+
+# logs
+logs/
+*.log

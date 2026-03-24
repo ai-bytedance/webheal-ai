@@ -1,0 +1,7 @@
+# dbdata 预发环境配置
+config:
+  uiBase: "https://preprod.dbdata.com/"
+  apiBase: "https://preprod.dbdata.com/api"
+user:
+  email: "wangbing@dongbidata.com"
+  password: "Db@1234567"

@@ -13,8 +13,8 @@ export class DataEngine {
 
   private constructor() {
     this.testEnv = process.env.test_env || 'preprod';
-    // 默认测试项目路径为 researchtool
-    this.projectRoot = path.join(process.cwd(), 'projects/researchtool'); 
+    // 默认项目路径
+    this.projectRoot = path.join(process.cwd(), 'projects');
   }
 
   static getInstance(): DataEngine {
@@ -26,11 +26,13 @@ export class DataEngine {
 
   /**
    * 获取合并后的完整测试数据
+   * @param projectName 项目名称 (如 researchtool, dbdata)
    * @param yamlPath 触发加载的用例路径 (用于提取模块名)
    * @param caseVariables 用例文件内部定义的变量
    */
-  getMergedData(yamlPath?: string, caseVariables: any = {}): any {
-    const dataDir = path.join(this.projectRoot, 'data');
+  getMergedData(projectName: string = 'researchtool', yamlPath?: string, caseVariables: any = {}): any {
+    const currentProjectRoot = path.join(this.projectRoot, projectName);
+    const dataDir = path.join(currentProjectRoot, 'data');
     let mergedData: any = {};
 
     // 提取模块名

@@ -1,0 +1,8 @@
+# dbdata 期刊评价模块 UI 数据
+ui:
+  journal_evaluation:
+    title: "北京东壁数据科技有限责任公司"
+    search_placeholder: "通过期刊名称搜索..."
+    search_btn_text: "查询"
+    sample_journal: "Scientific Reports"
+    result_item_selector: "a.journal-name"

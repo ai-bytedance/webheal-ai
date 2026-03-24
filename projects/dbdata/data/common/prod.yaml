@@ -1,0 +1,7 @@
+# dbdata 线上环境配置
+config:
+  uiBase: "https://www.dbdata.com/"
+  apiBase: "https://www.dbdata.com/api"
+user:
+  email: "wangbing@dongbidata.com"
+  password: "Db@123456"

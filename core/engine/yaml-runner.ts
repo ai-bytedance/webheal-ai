@@ -10,6 +10,13 @@ import { DataEngine } from './data-engine';
  * 负责解析 YAML 用例并映射到具体的 Page Object 动作
  */
 export class YamlRunner {
+  /**
+   * 辅助函数：通过路径提取项目名 (e.g. projects/dbdata/... -> dbdata)
+   */
+  private static getProjectNameFromPath(yamlPath: string): string {
+    return yamlPath.match(/projects[\\\/]([^\\\/]+)[\\\/]/i)?.[1] || 'researchtool';
+  }
+
   static async runYaml(yamlPath: string) {
     if (!fs.existsSync(yamlPath)) {
       throw new Error(`YAML file not found at path: ${yamlPath}`);
@@ -27,8 +34,10 @@ export class YamlRunner {
     const dataEngine = DataEngine.getInstance();
 
     test.describe(moduleName, () => {
+      // 提取项目名称
+      const projectName = YamlRunner.getProjectNameFromPath(yamlPath);
       // 通过统一引擎加载合并后的数据 (SSOT)
-      const mergedData = dataEngine.getMergedData(yamlPath, data.variables);
+      const mergedData = dataEngine.getMergedData(projectName, yamlPath, data.variables);
 
       // 模块级标签
       const moduleTags = Array.isArray(data.tags) ? data.tags : [];
@@ -60,7 +69,9 @@ export class YamlRunner {
             await test.step(stepData.step, async () => {
               // 核心转换逻辑：根据类名后缀自动切换上下文（UI Page vs API Object）
               const context = stepData.page.endsWith('API') ? request : page;
-              const pageInstance = PageRegistry.getPageInstance(stepData.page, context);
+              // 获取当前执行的项目名称
+              const stepProjectName = YamlRunner.getProjectNameFromPath(yamlPath);
+              const pageInstance = PageRegistry.getPageInstance(stepProjectName, stepData.page, context);
               
               const action = stepData.action;
               const params = stepData.params || [];

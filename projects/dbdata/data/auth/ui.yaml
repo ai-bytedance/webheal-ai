@@ -1,0 +1,15 @@
+ui:
+  login:
+    title: "北京东壁数据科技有限责任公司"
+    username_placeholder: "请输入邮箱地址"
+    password_placeholder: "请输入密码"
+    login_btn: "登 录"
+    success_toast: "用户中心" # 假设登录后看到用户中心
+  register:
+    title: "注册 - dbdata"
+    username_placeholder: "请设置用户名"
+    email_placeholder: "请输入邮箱"
+    password_placeholder: "请设置密码"
+    confirm_password_placeholder: "请确认密码"
+    register_btn: "立即注册"
+    success_msg: "注册成功"

@@ -13,6 +13,17 @@ process.env.RUN_REPORT_DIR = runReportDir;
 process.env.ALLURE_RESULTS_DIR = `${runReportDir}/allure-results`;
 
 
+// 获取项目基础配置的辅助函数
+const getProjectConfig = (projectName: string) => {
+  const dataEngine = DataEngine.getInstance();
+  const mergedData = dataEngine.getMergedData(projectName);
+  const config = mergedData.config || {};
+  return {
+    uiBase: config.uiBase,
+    apiBase: config.apiBase
+  };
+};
+
 /**
  * Playwright 配置文件: 核心环境与执行策略配置
  */
@@ -33,17 +44,6 @@ export default defineConfig({
   ],
 
   use: {
-    // 环境映射表：统一管理 UI 与 API 地址 (SSOT: 从 data/common/${env}.yaml 加载)
-    baseURL: (() => {
-      const dataEngine = DataEngine.getInstance();
-      const mergedData = dataEngine.getMergedData();
-      const config = mergedData.config || {};
-      
-      // 注入 API 基础地址供 AI 自愈定位器 (AOM) 与 全局认证 (Setup) 使用
-      process.env.API_BASE_URL = config.apiBase;
-      
-      return config.uiBase;
-    })(),
     trace: 'retain-on-failure', // 失败时保留链路追踪
     video: 'retain-on-failure', // 失败时保留视频录制
     screenshot: 'on',           // 开启截图
@@ -55,33 +55,34 @@ export default defineConfig({
       testMatch: 'core/auth/**/*.setup.ts',
     },
     {
-      name: 'webheal-ai',
+      name: 'research-ui',
       testMatch: [
         'projects/researchtool/tests/**/*-ui.test.ts'
       ],
       use: {
         ...devices['Desktop Chrome'],
+        baseURL: getProjectConfig('researchtool').uiBase,
         storageState: authFile,
       },
       dependencies: ['auth-setup'],
     },
     {
-      name: 'webheal-ai-unauth',
+      name: 'dbdata-ui',
       testMatch: [
-        'projects/researchtool/tests/**/*-ui.test.ts'
+        'projects/dbdata/tests/**/*-ui.test.ts'
       ],
       use: {
         ...devices['Desktop Chrome'],
-        storageState: { cookies: [], origins: [] }, // 强制使用空状态
+        baseURL: getProjectConfig('dbdata').uiBase,
       },
     },
     {
-      name: 'webheal-ai-api',
+      name: 'research-api',
       testMatch: 'projects/researchtool/tests/**/*-api.test.ts',
       use: {
         ...devices['Desktop Chrome'],
-        baseURL: process.env.API_BASE_URL,
-        storageState: authFile, // 使用登录状态
+        baseURL: getProjectConfig('researchtool').apiBase,
+        storageState: authFile,
       },
       dependencies: ['auth-setup'],
     },

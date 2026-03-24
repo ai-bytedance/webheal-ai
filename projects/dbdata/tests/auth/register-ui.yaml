@@ -1,0 +1,20 @@
+module: "身份验证"
+tags: ["P1"]
+cases:
+  - name: "dbdata 注册流程校验"
+    steps:
+      - step: "进入注册页"
+        page: "RegisterPage"
+        action: "goto"
+      - step: "执行注册操作"
+        page: "RegisterPage"
+        action: "register"
+        params: 
+          - username: "testuser_${$timestamp}"
+            email: "test_${$timestamp}@dbdata.com"
+            password: "Password123!"
+            confirmPassword: "Password123!"
+      - step: "验证注册成功"
+        page: "RegisterPage"
+        action: "verifyRegisterSuccess"
+        params: ["${ui.register.success_msg}"]

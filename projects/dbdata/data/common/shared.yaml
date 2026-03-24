@@ -1,0 +1,4 @@
+# dbdata 项目公共配置
+config:
+  projectName: "dbdata"
+  author: "Antigravity"

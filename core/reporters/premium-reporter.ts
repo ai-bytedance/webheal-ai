@@ -196,7 +196,9 @@ class PremiumReporter implements Reporter {
       else if (hasUI) finalProjectTitle = 'WebHeal AI (UI)';
 
       const dataEngine = DataEngine.getInstance();
-      const testEnvData = dataEngine.getMergedData();
+      // 在总结报告中，尝试获取第一个测试用例的项目名称来确定基础 URL
+      const firstProject = this.tests.find(t => t.realProjectName)?.realProjectName || 'researchtool';
+      const testEnvData = dataEngine.getMergedData(firstProject);
       const testEnv = process.env.test_env || 'preprod';
       const uiBase = testEnvData.config?.uiBase || 'Unknown';
 

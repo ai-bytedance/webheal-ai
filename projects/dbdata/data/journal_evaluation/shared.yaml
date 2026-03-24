@@ -1,0 +1,7 @@
+# 期刊测试数据 (支持动态维护)
+testdata:
+  journals:
+    - name: "Scientific Reports"
+      issn: "2045-2322"
+    - name: "Nature"
+      issn: "1476-4687"

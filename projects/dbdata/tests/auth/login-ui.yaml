@@ -1,0 +1,20 @@
+module: "身份验证"
+tags: ["P1"]
+cases:
+  - name: "dbdata 登录流程校验"
+    steps:
+      - step: "进入登录页"
+        page: "LoginPage"
+        action: "goto"
+      - step: "验证页面标题"
+        page: "LoginPage"
+        action: "verifyPageTitle"
+        params: ["${ui.login.title}"]
+      - step: "执行登录操作"
+        page: "LoginPage"
+        action: "login"
+        params: ["${user.email}", "${user.password}"]
+      - step: "验证登录成功"
+        page: "LoginPage"
+        action: "verifyLoginSuccess"
+        params: ["${ui.login.success_toast}"]

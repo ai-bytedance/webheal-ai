@@ -11,7 +11,8 @@ const authFile = path.resolve(process.cwd(), `output/auth/auth-${testEnv}.json`)
 
 setup('用户认证', async ({ request }) => {
   const dataEngine = DataEngine.getInstance();
-  const mergedData = dataEngine.getMergedData();
+  const projectName = process.env.PROJECT_NAME || 'researchtool';
+  const mergedData = dataEngine.getMergedData(projectName);
 
   const apiBase = mergedData.config?.apiBase;
   const loginPath = '/user/user/login';

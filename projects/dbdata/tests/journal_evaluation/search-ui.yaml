@@ -1,0 +1,44 @@
+module: "期刊评价"
+tags: ["smoke", "P0"]
+cases:
+  - name: "验证通过期刊名称正常查询对应的期刊数据"
+    steps:
+      - step: "进入期刊评价页"
+        page: "JournalEvaluationPage"
+        action: "goto"
+        screenshot: true
+      - step: "切换至期刊名称 Tab"
+        page: "JournalEvaluationPage"
+        action: "switchToTab"
+        params: ["期刊名称"]
+      - step: "执行名称搜索操作"
+        page: "JournalEvaluationPage"
+        action: "searchJournal"
+        params: ["${testdata.journals.0.name}"]
+        screenshot: true
+      - step: "验证查询结果"
+        page: "JournalEvaluationPage"
+        action: "verifySearchResult"
+        params: ["${testdata.journals.0.name}"]
+        screenshot: true
+
+  - name: "验证通过ISSN正常查询对应的结果期刊数据"
+    steps:
+      - step: "进入期刊评价页"
+        page: "JournalEvaluationPage"
+        action: "goto"
+        screenshot: true
+      - step: "切换至 ISSN Tab"
+        page: "JournalEvaluationPage"
+        action: "switchToTab"
+        params: ["ISSN"]
+      - step: "执行 ISSN 搜索操作"
+        page: "JournalEvaluationPage"
+        action: "searchJournal"
+        params: ["${testdata.journals.0.issn}"]
+        screenshot: true
+      - step: "验证查询结果"
+        page: "JournalEvaluationPage"
+        action: "verifySearchResult"
+        params: ["${testdata.journals.0.name}"]
+        screenshot: true
